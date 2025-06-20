@@ -1,3 +1,5 @@
+-- door_access/sh_config.lua
+
 DoorAccess = DoorAccess or {}
 -- Default code applied to new keypads
 DoorAccess.DefaultCode = "1234"
