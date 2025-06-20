@@ -11,10 +11,16 @@ function ENT:Initialize()
     if IsValid(phys) then phys:Wake() end
 
     self.Code = DoorAccess.DefaultCode
+    self.LastUseTime = 0
 end
 
 function ENT:Use(activator)
     if IsValid(activator) and activator:IsPlayer() then
+        local curTime = CurTime()
+        if curTime - self.LastUseTime < 1 then return end  -- 1 second cooldown
+        self.LastUseTime = curTime
+        print("[Keypad] Use called by", activator:Nick())
+        
         net.Start("OpenKeypadUI")
         net.WriteEntity(self)
         net.Send(activator)
